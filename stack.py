@@ -1,22 +1,12 @@
-class Stack:
-    def __init__(self):
-      self.items = []
-      
-    def push(self, val):
-        self.items.append(val)
-        
-    def pop(self):
-        
-            return self.items.pop()
-            
+
+class Stack :
+    def __init__(self) :
+        self.items = []
+    def push(self, value) :
+        self.items.append(value)
+    def pop(self) :
+        return self.items.pop()
     def top(self):
-        try:
-            return self.items[-1]
-        except IndexError:
-            print("Stack is null")
-    
+        return self.items[-1]
     def __len__(self):
         return len(self.items)
-    
-    
-    

@@ -8,6 +8,7 @@ output = []
 
 def convertpostfix() :
     for word in infix :
+     
         if word == '(':
             S.push(word)
         if word == ')':
@@ -19,9 +20,26 @@ def convertpostfix() :
             if word == '*' or word == '/' :
                 S.push(word)
             elif word == '+':
-                S.push(word)
+                try :
+                    if S.top() == '*' :
+                        output.append(S.top())
+                        S.pop()
+                        S.push(word)
+                    else :
+                        S.push(word)
+                except IndexError :
+                    S.push(word)
             elif word == '-':
-                S.push(word)
+                try :
+                    if S.top() == '*' :
+                        output.append(S.top())
+                        S.pop()
+                        S.push(word)
+                    else :
+                        S.push(word)
+                except IndexError :
+                    S.push(word)
+            
         else :
             output.append(word)
     
@@ -29,13 +47,29 @@ def convertpostfix() :
     for stackword in range(len(S)) :
         output.append(S.pop())
     
-    for filterlist in output :
-        if filterlist == '(' :
+    for filterbracket in output :
+        if filterbracket == '(' :
             output.remove('(')
-        elif filterlist == ')' :
+        elif filterbracket == ')' :
             output.remove(')')
-        
-    return output
+    
+    print(output)
+ 
+    for token in output :
+        if token in '+-/*' :
+            a = S.pop()
+            b = S.pop()
+            if token == '+' :
+                S.push(a+b)
+            elif token == '-' :
+                S.push(b-a)
+            elif token == '/' :
+                S.push(a/b)
+            elif token == '*' :
+                S.push(a*b)
+        else :
+            S.push(int(token))
+    return S.top()
 
 
 print(convertpostfix())
