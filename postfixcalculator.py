@@ -19,9 +19,9 @@ def convertpostfix() :
         if word in '+-/*' :
             if word == '*' or word == '/' :
                 S.push(word)
-            elif word == '+':
+            elif word == '+' or word == '-':
                 try :
-                    if S.top() == '*' :
+                    if S.top() == '*' or S.top() == '/':
                         output.append(S.top())
                         S.pop()
                         S.push(word)
@@ -29,17 +29,6 @@ def convertpostfix() :
                         S.push(word)
                 except IndexError :
                     S.push(word)
-            elif word == '-':
-                try :
-                    if S.top() == '*' :
-                        output.append(S.top())
-                        S.pop()
-                        S.push(word)
-                    else :
-                        S.push(word)
-                except IndexError :
-                    S.push(word)
-            
         else :
             output.append(word)
     
@@ -52,8 +41,7 @@ def convertpostfix() :
             output.remove('(')
         elif filterbracket == ')' :
             output.remove(')')
-    
-    print(output)
+
  
     for token in output :
         if token in '+-/*' :
